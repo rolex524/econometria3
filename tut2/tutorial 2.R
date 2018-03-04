@@ -1,6 +1,7 @@
 library(systemfit)
 library(readstata13)
 library(dplyr)
+library(stargazer)
 
 setwd("C:\\Users\\tadeu\\Desktop\\FGV\\semestre 7\\econometria 3\\tutoriais\\tut2")
 df <- read.dta13("Problem2.dta")
@@ -12,10 +13,12 @@ instrument1 <- ~ age + kidslt6 + kidsge6 + nwifeinc+ exper + expersq
 lm(eq1, df)
 lm(eq2, df)
 
+stargazer(lm(eq1, df), lm(eq2, df),type = "html", out = "C:\\Users\\tadeu\\Desktop\\FGV\\semestre 7\\econometria 3\\tutoriais\\tut2/output1.html")
+
 systemfit(
   formula = list(eq1,eq2), 
   data = df) %>% 
-  summary()
+  #summary() %>%
 
 systemfit(
   formula = list(supply = eq1, demand = eq2), 
@@ -44,3 +47,4 @@ lwage_redu <- lm(lwage ~ age + kidslt6 + kidsge6 + nwifeinc+ exper + expersq, df
 fit_1.2 <- lm(hours ~ lwage_redu + educ + age + kidslt6 + kidsge6 + nwifeinc, df)
 fit_2.2 <- lm(lwage ~ hours_redu + educ + exper + expersq, df)
 
+stargazer(fit_1.2,fit_2.2, type = "html", out = "C:\\Users\\tadeu\\Desktop\\FGV\\semestre 7\\econometria 3\\tutoriais\\tut2/output2.html")
