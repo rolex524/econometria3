@@ -91,3 +91,10 @@ summary(pmodel.fd)
 ## FGLS
 gls.model <- pggls(EARNINGS ~ UNION + MALE + EXP, data=df, index=c("ID","TIME"),na.action=na.omit, model="within")
 summary(gls.model)
+
+#####
+pdata <- pdata.frame(df, index = c("TIME","ID"))
+summary(
+  plm(EARNINGS ~ UNION + MALE + EXP, data=df,index=c("ID","TIME"),na.action=na.omit, model="random")
+)
+ 
