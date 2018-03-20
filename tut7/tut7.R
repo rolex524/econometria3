@@ -1,5 +1,6 @@
 library(readstata13)
 library(plm)
+library(stargazer)
 
 setwd("C:\\Users\\tadeu\\Desktop\\FGV\\semestre 7\\econometria 3\\tutoriais\\tut7")
 df <- read.dta13("Problem7.dta")
@@ -10,7 +11,7 @@ eq <- list(
 )
 
 #FD Model
-pmodel.fd <- plm(criv ~ polpc, data=df, index=c("state","year"), na.action=na.omit, model="fd")
+pmodel.fd <- plm(df$criv ~ df$polpc - lag(df$polpc), index=c("state","year"), na.action=na.omit, model="fd")
 summary(pmodel.fd)
 
 ## FGLS
